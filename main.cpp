@@ -2,6 +2,8 @@
 #include "max32630fthr.h"
 #include "USBMSD_SD.h"
 
+MAX32630FTHR pegasus(MAX32630FTHR::VIO_3V3);
+
 DigitalOut rLED(LED1);
 DigitalOut gLED(LED2);
 
@@ -11,13 +13,8 @@ int main()
 {
     gLED = LED_OFF;
     rLED = LED_ON;
-    max32630fthrInit();
-    Thread::wait(100);
+    pegasus.init();
 
-    vddioh(P0_4, TRUE);
-    vddioh(P0_5, TRUE);
-    vddioh(P0_6, TRUE);
-    vddioh(P0_7, TRUE);
     gLED = LED_ON;
     Thread::wait(100);
 
