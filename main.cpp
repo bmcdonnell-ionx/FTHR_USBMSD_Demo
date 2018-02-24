@@ -1,6 +1,7 @@
 #include "mbed.h"
 #include "max32630fthr.h"
 #include "USBMSD_BD.h"
+#include "SDBlockDevice.h"
 #include "HeapBlockDevice.h"
 #include "FATFileSystem.h"
 
@@ -13,7 +14,8 @@ DigitalOut gLED(LED2);
 DigitalOut bLED(LED3);
 
 // Physical block device, can be any device that supports the BlockDevice API
-HeapBlockDevice bd(512*BLOCK_SIZE, BLOCK_SIZE);
+// HeapBlockDevice bd(512*BLOCK_SIZE, BLOCK_SIZE);
+SDBlockDevice bd(P0_5, P0_6, P0_4, P0_7);
 
 // File system declaration
 FATFileSystem fs("fs");
