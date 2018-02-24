@@ -19,7 +19,7 @@ HeapBlockDevice bd(512*BLOCK_SIZE, BLOCK_SIZE);
 FATFileSystem fs("fs");
 
 // USB MSD 
-USBMSD_BD msd(&bd, BLOCK_SIZE);  
+USBMSD_BD msd(&bd);  
 
 
 // main() runs in its own thread in the OS
