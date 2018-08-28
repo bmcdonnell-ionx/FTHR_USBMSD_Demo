@@ -38,9 +38,9 @@ int main()
 
     DigitalOut led1(LED1);
 
-    while (true) {
+    while (true)
+    {
         wait_ms(500);
-        printf(".");        
         led1 = !led1;
     }
 }
