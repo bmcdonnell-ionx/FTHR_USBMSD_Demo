@@ -1,21 +1,15 @@
 #include "mbed.h"
-#include "max32630fthr.h"
 #include "USBMSD_BD.h"
 #include "SDBlockDevice.h"
 #include "HeapBlockDevice.h"
 #include "FATFileSystem.h"
 
 #define BLOCK_SIZE   512
-
-MAX32630FTHR pegasus(MAX32630FTHR::VIO_3V3);
-
-DigitalOut rLED(LED1);
-DigitalOut gLED(LED2);
-DigitalOut bLED(LED3);
+#define SDCARD_SPI_BUS_CLK_HZ  (10000000)
 
 // Physical block device, can be any device that supports the BlockDevice API
 // HeapBlockDevice bd(512*BLOCK_SIZE, BLOCK_SIZE);
-SDBlockDevice bd(P0_5, P0_6, P0_4, P0_7);
+SDBlockDevice bd(p5, p6, p7, p8, SDCARD_SPI_BUS_CLK_HZ);
 
 // File system declaration
 FATFileSystem fs("fs");
@@ -23,15 +17,21 @@ FATFileSystem fs("fs");
 // USB MSD 
 USBMSD_BD msd(&bd);  
 
+UARTSerial serial(USBTX, USBRX, 115200);
+
+// redirect stdio to this serial port
+FileHandle *mbed::mbed_override_console(int fd)
+{
+   return &serial;
+}
+
+
 
 // main() runs in its own thread in the OS
 // (note the calls to Thread::wait below for delays)
 int main()
 {
     printf("--- Mbed OS filesystem example ---\n");
-    rLED = LED_ON;
-    gLED = LED_ON;
-    bLED = LED_OFF;
 
     Thread::wait(100);
 
@@ -48,8 +48,6 @@ int main()
         err = fs.reformat(&bd);
         printf("%s\n", (err ? "Fail :(" : "OK"));
     }
-
-    rLED = LED_OFF;
 
     // Open the numbers file
     printf("Opening \"/fs/numbers.txt\"... ");
@@ -156,13 +154,14 @@ int main()
     printf("Starting MSD... ");
     msd.disk_initialize();
     err = msd.connect();
-    bLED = LED_ON;
     printf("%s\n", (err < 0 ? "Fail :(" : "OK"));
+
+    DigitalOut led1(LED1);
 
     while (true) {
         wait_ms(500);
         printf(".");        
-        gLED = !gLED;
+        led1 = !led1;
     }
 }
 
