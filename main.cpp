@@ -4,6 +4,8 @@
 //#include "HeapBlockDevice.h"
 #include "FATFileSystem.h"
 
+#include <inttypes.h>
+
 //#define BLOCK_SIZE   512
 #define SDCARD_SPI_BUS_CLK_HZ  (10000000)
 
@@ -87,14 +89,14 @@ int main()
 
         // Parse out the number and increment
         int32_t number;
-        fscanf(f, "%d", &number);
+        fscanf(f, "%" PRIi32, &number);
         number += 1;
 
         // Seek to beginning of number
         fseek(f, pos, SEEK_SET);
     
         // Store number
-        fprintf(f, "    %d\r\n", number);
+        fprintf(f, "    %" PRIi32 "\r\n", number);
     }
     printf("\rIncrementing numbers (%d/%d)... OK\r\n", 10, 10);
 
