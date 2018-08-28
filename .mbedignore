@@ -1,0 +1,4 @@
+USBDevice/USBAudio/
+USBDevice/USBHID/
+USBDevice/USBMIDI/
+USBDevice/USBSerial/
