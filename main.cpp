@@ -1,10 +1,10 @@
 #include "mbed.h"
 #include "USBMSD_BD.h"
 #include "SDBlockDevice.h"
-#include "HeapBlockDevice.h"
+//#include "HeapBlockDevice.h"
 #include "FATFileSystem.h"
 
-#define BLOCK_SIZE   512
+//#define BLOCK_SIZE   512
 #define SDCARD_SPI_BUS_CLK_HZ  (10000000)
 
 // Physical block device, can be any device that supports the BlockDevice API
