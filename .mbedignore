@@ -1,7 +1,7 @@
-USBDevice/USBAudio/
-USBDevice/USBHID/
-USBDevice/USBMIDI/
-USBDevice/USBSerial/
+mbed2-usb-device/USBAudio/
+mbed2-usb-device/USBHID/
+mbed2-usb-device/USBMIDI/
+mbed2-usb-device/USBSerial/
 
 mbed-os/features/cellular/
 mbed-os/features/device_key/
